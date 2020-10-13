@@ -1,0 +1,147 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{gensymb}
+\usepackage{booktabs}
+\usepackage{scrextend}
+\usepackage{blindtext}
+\addtokomafont{labelinglabel}{\ttfamily}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Project 1 Test}
+
+\author{\IEEEauthorblockN{Aaron Cornelius}
+\IEEEauthorblockA{\textit{MABE} \\
+\textit{University of Tennessee Knoxville}\\
+Knoxville, TN \\
+acornel5@vols.utk.edu}
+}
+
+\maketitle
+
+%\begin{abstract}
+%This document is a model and instructions for \LaTeX.
+%This and the IEEEtran.cls file define the components of your paper [title, %text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, %Footnotes, 
+%or Math in Paper Title or Abstract.
+%\end{abstract}
+
+
+
+
+
+\section{Implementation}
+This section describes how the forward and inverse kinematics were implemented as reusable functions and tested. First, the various Matlab functions that were built are described. Then these programs will be used to compute all possible configurations that can be used to achieve a specified tool frame.
+
+\subsection{Matlab code}
+Both the forward and inverse kinematic calculations for the Kuka KR-6 robot were implemented in Matlab. These functions are hard-coded for the KR-6 and attached welding torch, but could be easily modified for any similar 6 axis anthropomorphic arm/spherical wrist robot/end effector combination. The following functions are included in the appendix for this paper:
+\begin{labeling}{KR6\_ForwardKinematics.m}
+	\item[anthroArmForward.m] Calculates the forward kinematics of the first three joints of the robot
+	\item[anthroArmInverse.m] Calculates the inverse kinematics of the first three joints of the robot
+	\item[dhTransformLiteral.m] Creates the transformation matrix for a set of Denavit-Hartenberg parameters 
+	\item[KR6\_ForwardKinematics.m] Calculates the forward kinematics of the entire robot for a given set of 6 joint angles
+	\item[KR6\_InverseKinematics.m] Calculates the inverse kinematics of the entire robot for a given desired tool-frame
+	\item[plotRobot.m] Creates a 3d schematic plot of the robot for a given set of 6 joint angles
+\end{labeling}
+
+There are three notes about the output of the inverse kinematics:
+
+First, it is not guaranteed that all these identified configurations are valid: they are not checked against the robot's axis limits, and could return configurations that can't actually be run. This functionality was omitted since defining the robot's operable space was explicitly defined as part of the second project for this class.
+
+Second, the axis positions are specified in reference to the Denavit-Hartenberg parameters, not the programmed robot zero position. A simple additive transformation can align these properly, but for this project it is simpler to be consistent and keep all the axis angles in the same form rather than transforming them in and out of the DH convention.
+
+Finally, in the case of singularities the function will give a warning. Depending on the singularity, some possible solutions may be generated, but these should not be depended on, and it would be better to avoid the position. 
+
+\subsection{Inverse kinematics results}
+As a demonstration, the functions described above were used to calculate the inverse kinematics of the robot for a given tool orientation/position frame $T_T^0$. While this matrix may seem trivial at first glance since it is parallel with the axis position and in line with the robot arm at $\vartheta_1=0$, the tilted angle on the welding torch forces the first joint to rotate so that the spherical wrist is to below and to one side of the tool tip. Determining the joint angles to achieve this position is non-trivial.
+$$T_T^0=\begin{bmatrix}
+1 & 0 & 0 & 670\\ 
+0 & 1 & 0 & 0 \\ 
+0 & 0 & 1 & 1320 \\ 
+0 & 0 & 0 & 1
+\end{bmatrix}$$
+
+When this requested tool frame matrix is input into the \texttt{KR6\_InverseKinematics.m} function, it returns eight possible axis configurations to achieve this desired tool frame, shown in Table \ref{tab:jointConfigs}. Each of the proposed configurations was run through the \texttt{KR6\_ForwardKinematics.m} function, and the actual tool frames were confirmed against the desired frame. Finally, each of the configurations was plotted using \texttt{plotRobot.m} (shown in Figure \ref{fig:RobotConfigs}.)
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.2\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Figures/3}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.2\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Figures/4}
+		\caption{}
+	\end{subfigure}
+	\newline
+	\begin{subfigure}[b]{0.2\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Figures/6}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.2\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Figures/7}
+		\caption{}
+	\end{subfigure}
+	\newline
+	\begin{subfigure}[b]{0.2\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Figures/8}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.2\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Figures/9}
+		\caption{}
+	\end{subfigure}
+	\newline
+	\begin{subfigure}[b]{0.2\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Figures/10}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.2\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Figures/11}
+		\caption{}
+	\end{subfigure}
+	\caption{All eight possible robot configurations for the tool frame defined in $T_T^0$}
+	\label{fig:RobotConfigs}
+\end{figure}
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{@{}ccccccc@{}}
+		\toprule
+		Figure & $\vartheta_1$ & $\vartheta_2$ & $\vartheta_3$ & $\vartheta_4$ & $\vartheta_5$ & $\vartheta_6$ \\ \midrule
+		a & -23.9 & 99.8 & 145 & 128 & 124 & 177 \\
+		b & -23.9 & 99.8 & 145 & -51.6 & -124 & -3.36 \\
+		c & 156 & 122 & -9.31 & -50.1 & 123 & 179 \\
+		d & 156 & 122 & -9.31 & 130 & -123 & -0.702 \\
+		e & -23.9 & 333 & 41.5 & 99 & 40.9 & -69.7 \\
+		f & -23.9 & 333 & 41.5 & -81 & 40.9 & 110 \\
+		g & 156 & 199 & 195 & -45.4 & 65.1 & -125 \\
+		h & 156 & 199 & 195 & 135 & -65.1 & 55.2 \\ \bottomrule
+	\end{tabular}
+	\caption{Joint configurations for the robot shown in figure \ref{fig:RobotConfigs}}
+	\label{tab:jointConfigs}
+\end{table}
+
+All eight of these solutions position the tool in the desired position, but they each use different configurations to do so. Figures (a), (b), (e), and (f) all have have the first joint $\vartheta_1$ facing towards the desired point, while the other four figures keep the first joint facing away. Similarly, figures (a), (b), (c), and (d) keep the second and third joints pointed up, while the other four invert those joints. The other variation is in the angle of the wrist. The two figures in each row ((a)/(b), (c)/(d), (e)/(f), and (g)/(h)) all have identical values for the first three joints, but the wrist mechanism is inverted. 
+
+Other positions may return different numbers of possible configurations. For example, if a point is not reachable with the first joint inverted, then only four solutions will be returned.
+
+\end{document}

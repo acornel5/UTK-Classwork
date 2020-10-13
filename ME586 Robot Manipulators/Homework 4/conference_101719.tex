@@ -1,0 +1,48 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{ME586 Homework}
+
+\author{\IEEEauthorblockN{Aaron Cornelius}
+\IEEEauthorblockA{\textit{MABE} \\
+\textit{University of Tennessee Knoxville}\\
+Knoxville, TN \\
+acornel5@vols.utk.edu}
+}
+
+\maketitle
+
+%\begin{abstract}
+%This document is a model and instructions for \LaTeX.
+%This and the IEEEtran.cls file define the components of your paper [title, %text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, %Footnotes, 
+%or Math in Paper Title or Abstract.
+%\end{abstract}
+
+%\begin{IEEEkeywords}
+%component, formatting, style, styling, insert
+%\end{IEEEkeywords}
+
+
+
+\section{Problem 3.3}
+Compute the Jacobian of the SCARA manipulator in Figure 2.36.
+$$
+\left(\begin{array}{cccc} s_{5}\,\left(c_{3}\,s_{0}-s_{3}\,\left(c_{0}\,c_{1}\,c_{2}-c_{0}\,s_{1}\,s_{2}\right)\right)-c_{5}\,\left(s_{4}\,\left(c_{0}\,c_{1}\,s_{2}+c_{0}\,c_{2}\,s_{1}\right)-c_{4}\,\left(s_{0}\,s_{3}+c_{3}\,\left(c_{0}\,c_{1}\,c_{2}-c_{0}\,s_{1}\,s_{2}\right)\right)\right) & s_{5}\,\left(s_{4}\,\left(c_{0}\,c_{1}\,s_{2}+c_{0}\,c_{2}\,s_{1}\right)-c_{4}\,\left(s_{0}\,s_{3}+c_{3}\,\left(c_{0}\,c_{1}\,c_{2}-c_{0}\,s_{1}\,s_{2}\right)\right)\right)+c_{5}\,\left(c_{3}\,s_{0}-s_{3}\,\left(c_{0}\,c_{1}\,c_{2}-c_{0}\,s_{1}\,s_{2}\right)\right) & c_{4}\,\left(c_{0}\,c_{1}\,s_{2}+c_{0}\,c_{2}\,s_{1}\right)+s_{4}\,\left(s_{0}\,s_{3}+c_{3}\,\left(c_{0}\,c_{1}\,c_{2}-c_{0}\,s_{1}\,s_{2}\right)\right) & 260\,c_{0}+680\,c_{0}\,c_{1}+35\,c_{0}\,c_{1}\,c_{2}+670\,c_{0}\,c_{1}\,s_{2}+670\,c_{0}\,c_{2}\,s_{1}+420\,c_{0}\,c_{4}\,s_{1,2}-35\,c_{0}\,s_{1}\,s_{2}+420\,s_{0}\,s_{3}\,s_{4}+420\,c_{0}\,c_{1}\,c_{2}\,c_{3}\,s_{4}-420\,c_{0}\,c_{3}\,s_{1}\,s_{2}\,s_{4}\\ -c_{5}\,\left(s_{4}\,\left(c_{1}\,s_{0}\,s_{2}+c_{2}\,s_{0}\,s_{1}\right)+c_{4}\,\left(c_{0}\,s_{3}-c_{3}\,\left(c_{1}\,c_{2}\,s_{0}-s_{0}\,s_{1}\,s_{2}\right)\right)\right)-s_{5}\,\left(c_{0}\,c_{3}+s_{3}\,\left(c_{1}\,c_{2}\,s_{0}-s_{0}\,s_{1}\,s_{2}\right)\right) & s_{5}\,\left(s_{4}\,\left(c_{1}\,s_{0}\,s_{2}+c_{2}\,s_{0}\,s_{1}\right)+c_{4}\,\left(c_{0}\,s_{3}-c_{3}\,\left(c_{1}\,c_{2}\,s_{0}-s_{0}\,s_{1}\,s_{2}\right)\right)\right)-c_{5}\,\left(c_{0}\,c_{3}+s_{3}\,\left(c_{1}\,c_{2}\,s_{0}-s_{0}\,s_{1}\,s_{2}\right)\right) & c_{4}\,\left(c_{1}\,s_{0}\,s_{2}+c_{2}\,s_{0}\,s_{1}\right)-s_{4}\,\left(c_{0}\,s_{3}-c_{3}\,\left(c_{1}\,c_{2}\,s_{0}-s_{0}\,s_{1}\,s_{2}\right)\right) & 260\,s_{0}+680\,c_{1}\,s_{0}+35\,c_{1}\,c_{2}\,s_{0}+670\,c_{1}\,s_{0}\,s_{2}+670\,c_{2}\,s_{0}\,s_{1}-420\,c_{0}\,s_{3}\,s_{4}+420\,c_{4}\,s_{0}\,s_{1,2}-35\,s_{0}\,s_{1}\,s_{2}+420\,c_{1}\,c_{2}\,c_{3}\,s_{0}\,s_{4}-420\,c_{3}\,s_{0}\,s_{1}\,s_{2}\,s_{4}\\ c_{5}\,\left(c_{1,2}\,s_{4}+c_{3}\,c_{4}\,s_{1,2}\right)-s_{3}\,s_{5}\,s_{1,2} & -s_{5}\,\left(c_{1,2}\,s_{4}+c_{3}\,c_{4}\,s_{1,2}\right)-c_{5}\,s_{3}\,s_{1,2} & c_{3}\,s_{4}\,s_{1,2}-c_{4}\,c_{1,2} & 680\,s_{1}-670\,c_{1,2}+35\,s_{1,2}-420\,c_{4}\,c_{1,2}+210\,s_{1,2}\,\sin\left(T_{3}+T_{4}\right)-210\,s_{1,2}\,\sin\left(T_{3}-T_{4}\right)+675\\ 0 & 0 & 0 & 1 \end{array}\right)$$
+
+\section{Problem 3.11}
+Prove (3.64) in an alternative way, i.e., by computing $S(\omega_e)$ as in (3.6) starting from $R(\phi)$ in (2.18).
+
+\section{Problem 3.12}
+With reference to (3.64), find the transformation matrix $T(\epsilon)$ in the case of RPY angles.
+
+\end{document}

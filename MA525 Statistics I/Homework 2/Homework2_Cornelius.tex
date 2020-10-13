@@ -1,0 +1,764 @@
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and export to LaTeX again.
+
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{epstopdf}
+\usepackage[table]{xcolor}
+\usepackage{matlab}
+
+\sloppy
+\epstopdfsetup{outdir=./}
+\graphicspath{ {./Homework2_Cornelius_images/} }
+
+\begin{document}
+
+\begin{par}
+\begin{flushleft}
+MA525 Homework 2
+\end{flushleft}
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+Aaron Cornelius
+\end{flushleft}
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+2020-10-11
+\end{flushleft}
+\end{par}
+
+
+\vspace{1em}
+\matlabheading{Problem 1}
+
+\begin{par}
+\begin{flushleft}
+Consider data $\omega_n$ where $n=1,\ldotp \ldotp \ldotp ,N$ indexes individual measurements. Each $\omega_n$ is obtained through a $\mathrm{Normal}\left(\mu ,v\right)$ distribution. Assume the variance $v$ has a known value. On $\mu$ use a $\mathrm{Normal}\left(M,V\right)$ prior where $M,V$ have known values.
+\end{flushleft}
+\end{par}
+
+\matlabheadingtwo{(i)}
+
+\begin{par}
+\begin{flushleft}
+In statistical notation, this problem can be written as:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+\mu ~\mathrm{Normal}\left(M,V\right)\\
+\omega_n |\mu ~\mathrm{Normal}\left(\mu ,v\right)
+\end{array}$$
+\end{par}
+
+\matlabheadingtwo{(ii)}
+
+\begin{par}
+$$p\left(\mu \right)=\mathrm{Normal}\left(\mu ;M,V\right)=\frac{1}{\sqrt{2\pi v}}\mathrm{exp}\left(-\frac{1}{2v}{\left(x-\mu \right)}^2 \right)$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+The PDF of the normal distribution, written using the variance, is:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$p\left(x\right)=\frac{1}{\sqrt{2\pi v}}\mathrm{exp}\left(-\frac{1}{2v}{\left(x-\mu \right)}^2 \right)$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+Therefore, there are two probability functions. The first explicitly defines the probability density of the distribution of $\mu$:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$p_{\mu } \left(\mu \right)=\frac{1}{\sqrt{2\pi V}}\mathrm{exp}\left(-\frac{1}{2V}{\left(\mu -M\right)}^2 \right)$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+The second defines the probability of an observed value $\omega$ conditioned on $\mu$:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$p_{\omega } \left(\omega |\mu \right)=\frac{1}{\sqrt{2\pi v}}\mathrm{exp}\left(-\frac{1}{2v}{\left(\omega -\mu \right)}^2 \right)$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+The likelihood is taken by, the likelihood function for some set of observations $\omega_n$ is:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+p\left(\omega_{1:N} |\mu ;\right)=\prod_{n=1}^N p\left(\omega_n |\mu \right)\\
+=\prod_{n=1}^N \left(\frac{1}{\sqrt{2\pi v}}\mathrm{exp}\left(-\frac{1}{2v}{\left(\omega_n -\mu \right)}^2 \right)\right)\\
+=\prod_{n=1}^N \left(\frac{1}{\sqrt{2\pi v}}\right)\prod_{n=1}^N \left(\mathrm{exp}\left(-\frac{1}{2v}{\left(\omega_n -\mu \right)}^2 \right)\right)\\
+={\left(\frac{1}{\sqrt{2\pi v}}\right)}^N \mathrm{exp}\left(-\frac{1}{2v}\sum_{n=1}^N {\left(\omega_n -\mu \right)}^2 \right)
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+The posterior can be calculated by multiplying the likelihood by the prior distribution:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+p\left(\mu |\omega_{1:N} \right)\propto p\left(\omega_{1:N} |\mu \right)p\left(\mu \right)\\
+=\left({\left(\frac{1}{\sqrt{2\pi v}}\right)}^N \mathrm{exp}\left(-\frac{1}{2v}\sum_{n=1}^N {\left(\omega_n -\mu \right)}^2 \right)\right)\left(\frac{1}{\sqrt{2\pi V}}\mathrm{exp}\left(-\frac{1}{2V}{\left(\mu -M\right)}^2 \right)\right)\\
+\propto \mathrm{exp}\left(-\frac{1}{2v}\sum_{n=1}^N {\left(\omega_n -\mu \right)}^2 \right)\mathrm{exp}\left(-\frac{1}{2V}{\left(\mu -M\right)}^2 \right)\\
+=\mathrm{exp}\left(-\frac{1}{2v}\sum_{n=1}^N {\left(\omega_n -\mu \right)}^2 -\frac{1}{2V}{\left(M-\mu \right)}^2 \right)=\mathrm{exp}\left(-\frac{1}{2}\left(\frac{1}{v}\sum_{n=1}^N {\left(\omega_n -\mu \right)}^2 +\frac{1}{V}{\left(M-\mu \right)}^2 \right)\right)
+\end{array}$$ 
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+To simplify the equation, define $f=\frac{1}{v}\sum_{n=1}^N {\left(\omega_n -\mu \right)}^2 +\frac{1}{V}{\left(M-\mu \right)}^2$. Therefore, by defining $\bar{\omega} =\frac{1}{N}\sum_{n=1}^N \omega_n$:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+p\left(\mu \left|\omega_{1:N} \right.\right)\propto \mathrm{exp}\left(-\frac{1}{2}f\right)\\
+f=\frac{1}{v}\sum_{n=1}^N {\left(\omega_n -\mu \right)}^2 +\frac{1}{V}{\left(M-\mu \right)}^2 \\
+=\frac{1}{v}\sum_{n=1}^N {\left(\left(\omega_n -\bar{\omega} \right)+\left(\bar{\omega} -\mu \right)\right)}^2 +\frac{1}{V}{\left(M-\mu \right)}^2 \\
+=\frac{1}{v}\left(\sum_{n=1}^N {\left(\omega_n -\bar{\omega} \right)}^2 +2\sum_{n=1}^N \left(\omega_n -\bar{\omega} \right)\left(\bar{\omega} -\mu \right)+\sum_{n=1}^N {\left(\bar{\omega} -\mu \right)}^2 \right)+\frac{1}{V}{\left(M-\mu \right)}^2 \\
+=\frac{1}{v}\left(\sum_{n=1}^N {\left(\omega_n -\bar{\omega} \right)}^2 +2\left(\bar{\omega} -\mu \right)\sum_{n=1}^N \left(\omega_n -\bar{\omega} \right)+N{\left(\bar{\omega} -\mu \right)}^2 \right)+\frac{1}{V}{\left(M-\mu \right)}^2 
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+Since $\sum_{n=1}^N \left(\omega_n -\bar{\omega} \right)=0$, this further simplifies to:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+f=\frac{1}{v}\left(\sum_{n=1}^N {\left(\omega_n -\bar{\omega} \right)}^2 +N{\left(\bar{\omega} -\mu \right)}^2 \right)+\frac{1}{V}{\left(M-\mu \right)}^2 \\
+=\frac{1}{v}\sum_{n=1}^N {\left(\omega_n -\bar{\omega} \right)}^2 +\frac{1}{v}N{\left(\bar{\omega} -\mu \right)}^2 +\frac{1}{V}{\left(M-\mu \right)}^2 
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+Substituting back into the original equation:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+p\left(\mu \left|\omega_{1:N} \right.\right)\propto \mathrm{exp}\left(-\frac{1}{2}\left(\frac{1}{v}\sum_{n=1}^N {\left(\omega_n -\bar{\omega} \right)}^2 +\frac{1}{v}N{\left(\bar{\omega} -\mu \right)}^2 +\frac{1}{V}{\left(M-\mu \right)}^2 \right)\right)\\
+=\mathrm{exp}\left(-\frac{1}{2v}\sum_{n=1}^N {\left(\omega_n -\bar{\omega} \right)}^2 \right)\mathrm{exp}\left(-\frac{1}{2}\left(\frac{1}{v}N{\left(\bar{\omega} -\mu \right)}^2 +\frac{1}{V}{\left(M-\mu \right)}^2 \right)\right)\\
+\propto \mathrm{exp}\left(-\frac{1}{2}\left(\frac{1}{v}N{\left(\bar{\omega} -\mu \right)}^2 +\frac{1}{V}{\left(M-\mu \right)}^2 \right)\right)
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+Now define a quadratic polynomial:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+g=\frac{N}{v}{\left(\bar{\omega} -\mu \right)}^2 +\frac{1}{V}{\left(M-\mu \right)}^2 \\
+=\frac{N}{v}\mu^2 -\frac{2N\bar{\omega} \mu }{v}+\frac{N{\bar{\omega} }^2 }{v}+\frac{M^2 }{V}-\frac{2M\mu }{V}+\frac{\mu^2 }{V}\\
+=\left(\frac{N}{v}+\frac{1}{V}\right)\left(\mu^2 -\frac{2\mu }{\frac{N}{v}+\frac{1}{V}}\left(\frac{N\bar{\omega} }{v}+\frac{M}{V}\right)+\frac{1}{\frac{N}{v}+\frac{1}{V}}\left(\frac{N{\bar{\omega} }^2 }{v}+\frac{M^2 }{V}\right)\right)
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+Now some proportionality constant $K$ can be multiplied in, allowing the formula to be written:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$g=\left(\frac{N}{v}+\frac{1}{V}\right){\left(\mu -\frac{\left(\frac{N\bar{\omega} }{v}+\frac{M}{V}\right)}{\frac{N}{v}+\frac{1}{V}}\right)}^2 +K$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+In the original equation, this equals:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+p\left(\mu \left|\omega_{1:N} \right.\right)\propto \mathrm{exp}\left(-\frac{1}{2}g\right)=\mathrm{exp}\left(-\frac{1}{2}K\right)\mathrm{exp}\left(-\frac{1}{2}\left(\frac{1}{{\left(\frac{N}{v}+\frac{1}{V}\right)}^{-1} }\right)\left({\left(\mu -\frac{\left(\frac{N\bar{\omega} }{v}+\frac{M}{V}\right)}{\frac{N}{v}+\frac{1}{V}}\right)}^2 \right)\right)\\
+\propto \mathrm{exp}\left(-\frac{1}{2}\left(\frac{1}{{\left(\frac{N}{v}+\frac{1}{V}\right)}^{-1} }\right)\left({\left(\mu -\frac{\left(\frac{N\bar{\omega} }{v}+\frac{M}{V}\right)}{\frac{N}{v}+\frac{1}{V}}\right)}^2 \right)\right)
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+This matches the form of the normal distribution $\mathrm{Normal}\left(\mu^* ,v^* \right)$ where:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$v^* =\frac{1}{\left(\frac{N}{v}+\frac{1}{V}\right)},\mu^* =v^* \left(\frac{N\bar{\omega} }{v}+\frac{M}{V}\right)$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+These can also be simplified:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+v^* =\frac{1}{\left(\frac{N}{v}+\frac{1}{V}\right)}=\frac{1}{\frac{V}{V}\frac{N}{v}+\frac{v}{v}\frac{1}{V}}=\frac{1}{\frac{\mathrm{VN}+v}{\mathrm{Vv}}}=\frac{\mathrm{Vv}}{\mathrm{VN}+v}\\
+\mu^* =\frac{\mathrm{Vv}}{\mathrm{VN}+v}\left(\frac{N\bar{\omega} }{v}+\frac{M}{V}\right)=\frac{\mathrm{Vv}}{\mathrm{VN}+v}\left(\frac{V}{V}\frac{N\bar{\omega} }{v}+\frac{v}{v}\frac{M}{V}\right)\\
+=\frac{\mathrm{Vv}}{\mathrm{VN}+v}\left(\frac{\mathrm{VN}\bar{\omega} +\mathrm{vM}}{\mathrm{Vv}}\right)\\
+=\frac{\mathrm{VN}\bar{\omega} +\mathrm{vM}}{\mathrm{VN}+v}
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+The equation can thus be written:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+p\left(\mu |\omega_{1:N} \right)\propto \mathrm{exp}\left(-\frac{1}{2v^* }{\left(\mu -\mu^* \right)}^2 \right)\\
+\Rightarrow p\left(\mu |\omega_{1:N} \right)=C\cdot \mathrm{exp}\left(-\frac{1}{2v^* }{\left(\mu -\mu^* \right)}^2 \right)=p\left(\mathrm{Normal}\left(\mu^* ,v^* \right)\right)=p_{\mu } \left(\mu \right)=\frac{1}{\sqrt{2\pi v^* }}\mathrm{exp}\left(-\frac{1}{2v^* }{\left(\mu -\mu^* \right)}^2 \right)\\
+\Rightarrow C=\frac{1}{\sqrt{2\pi v^* }}
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+Therefore:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+$p\left(\mu \left|\omega_{1:N} \right.\right)=\frac{1}{\sqrt{2\pi v^* }}\cdot \mathrm{exp}\left(-\frac{1}{2v^* }{\left(\mu -\mu^* \right)}^2 \right)$, where $v^* =\frac{\mathrm{Vv}}{\mathrm{VN}+v},\mu^* =\frac{\mathrm{VN}\bar{\omega} +\mathrm{vM}}{\mathrm{VN}+v}$
+\end{flushleft}
+\end{par}
+
+
+\vspace{1em}
+\matlabheadingtwo{(iii)}
+
+\begin{par}
+\begin{flushleft}
+This graph compares the prior and posterior results for the distribution of $\mu$. The prior distribution was very wide, indicating great uncertainty about what the true mean was. After the sample points are added, the posterior has converged much more strongly towards a single value.
+\end{flushleft}
+\end{par}
+
+\begin{center}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{Homework2//figure_0.eps}
+\end{center}
+
+\vspace{1em}
+\matlabheadingtwo{(iv)}
+
+\begin{par}
+\begin{flushleft}
+The probability that $\mu <0$ can be found by integrating the prior and posterior probabilties from negative infinity to infinity. Since it is not possible to numerically integrate negative infinity, the integrals will instead be performed from -100 to 0. From visual inspection of the graph of the prior and posteriors, it can be see that the probability past -10 is extremely low, and thus there will be little effect on the overall integration.
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+p\left(\mu \right)<0\ldotp 5\approx \int_{-100}^0 p\left(\mu \right)\;d\mu =0\ldotp 5=50%\\
+p\left(\mu |\omega_{1:N} \right)<0\ldotp 5\approx \int_{-100}^0 p\left(\mu |\omega_{1:N} \right)\;d\mu \approx 3\ldotp 44\cdot {10}^{-13} =3\ldotp 44\cdot {10}^{-11} %
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+These results make intuitive sense: the prior has a mean of 0, so there is a 50\% chance that the value will be less than the mean (i.e., negative.) The posterior is centered roughly around $\mu =1$, with very little probability that $\mu <0$.
+\end{flushleft}
+\end{par}
+
+\matlabheadingtwo{(v)}
+
+\begin{par}
+\begin{flushleft}
+The maximum a posteriori estimate for $\mu$ can be found by differentiating the probability distribution and finding the point where the slope is equal to zero.
+\end{flushleft}
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+$p\left(\mu \left|\omega_{1:N} \right.\right)=\frac{1}{\sqrt{2\pi v^* }}\cdot \mathrm{exp}\left(-\frac{1}{2v^* }{\left(\mu -\mu^* \right)}^2 \right)$, where $v^* =\frac{\mathrm{Vv}}{\mathrm{VN}+v},\mu^* =\frac{\mathrm{VN}\bar{\omega} +\mathrm{vM}}{\mathrm{VN}+v}$
+\end{flushleft}
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+$\frac{d}{d\mu }p\left(\mu \left|\omega_{1:N} \right.\right)=\frac{1}{\sqrt{2\pi v^* }}\cdot \left(f^{\prime } \left(g\left(\mu \right)\right)\cdot g^{\prime } \left(\mu \right)\right)$, where $f\left(\mu \right)=\mathrm{exp}\left(\mu \right),g\left(\mu \right)=-\frac{1}{2v^* }{\left(\mu -\mu^* \right)}^2$
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+=\frac{1}{\sqrt{2\pi v^* }}\cdot \mathrm{exp}\left(-\frac{1}{2v^* }{\left(\mu -\mu^* \right)}^2 \right)\cdot \left(-\frac{1}{v^* }\left(\mu -\mu^* \right)\right)\\
+0=\frac{1}{\sqrt{2\pi v^* }}\cdot \mathrm{exp}\left(-\frac{1}{2v^* }{\left(\mu -\mu^* \right)}^2 \right)\cdot \left(-\frac{1}{v^* }\left(\mu -\mu^* \right)\right)=\mathrm{exp}\left(-\frac{1}{2v^* }{\left(\mu -\mu^* \right)}^2 \right)\cdot \left(-\frac{1}{v^* }\left(\mu -\mu^* \right)\right)
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+This is true when either $\mathrm{exp}\left(-\frac{1}{2v^* }{\left(\mu -\mu^* \right)}^2 \right)=0$ or $\left(-\frac{1}{v^* }\left(\mu -\mu^* \right)\right)=0$. However, the exponential function can never be equal to zero. Therefore:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+\left(-\frac{1}{v^* }\left(\mu -\mu^* \right)\right)=0=\left(\mu -\mu^* \right)\\
+\Rightarrow \mu =\mu^* =\frac{\mathrm{VN}\bar{\omega} +\mathrm{vM}}{\mathrm{VN}+v}\approx 1\ldotp 4335
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+This result makes intuitive sense: the peak of a normal distribution is always at its mean value.
+\end{flushleft}
+\end{par}
+
+\matlabheadingtwo{(vi)}
+
+\begin{par}
+\begin{flushleft}
+Each measurement $\omega_n$ is in units of $\left\lbrack \mathrm{au}\right\rbrack$. In the $\mathrm{Normal}\left(\mu ,v\right)$ distribution that the measurements are drawn from, each measurement is subtracted from the mean value $\mu$. Therefore, they must have the same units, so the units of $\mu$ must also be $\left\lbrack \mathrm{au}\right\rbrack$. Similarly, in the prior distribution $\mathrm{Normal}\left(M,V\right)$, each value of $\mu$ is subtracted from the prior mean $M$, so the units of $M$ must also be $\left\lbrack \mathrm{au}\right\rbrack$. In both cases, the differences between the mean values $\mu ,M$ and the observed values $\omega_n ,\mu$ are then squared (giving units of $\left\lbrack {\mathrm{au}}^2 \right\rbrack$), and divided by the relevant variances $v,V$. The result of that division must be unitless for the exponential. Therefore, $v,V$ must have the same units as $\omega_n^2 ,\mu^2$: $\left\lbrack {\mathrm{au}}^2 \right\rbrack$.
+\end{flushleft}
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+In summary:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+\mu :\left\lbrack \mathrm{au}\right\rbrack \\
+M:\left\lbrack \mathrm{au}\right\rbrack \\
+v:\left\lbrack {\mathrm{au}}^2 \right\rbrack \\
+V:\left\lbrack {\mathrm{au}}^2 \right\rbrack 
+\end{array}$$
+\end{par}
+
+
+\vspace{1em}
+\matlabheading{Problem 2}
+
+\begin{par}
+\begin{flushleft}
+Set up a Bayesian model for discrete measurements. Consider data $\omega_n$, where each value $n=1,\ldotp \ldotp \ldotp ,N$ is an individual measurement. $\omega_n$ is drawn from a $\mathrm{Geometric}\left(\pi \right)$ distribution with probability mass given by:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$p\left(\omega \right)=\left\lbrace \begin{array}{ll}
+{\left(1-\pi \right)}^{\omega } \pi  & \omega \ge 0\\
+0 & \mathrm{else}
+\end{array}\right.$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+The prior of $\pi$ is defined with a $\mathrm{Beta}\left(\alpha ,\beta \right)$ distribution where $\alpha ,\beta$ have known values. The probability density of the Beta distribution is:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$p\left(\pi \right)=\left\lbrace \begin{array}{ll}
+\frac{{\pi^{\alpha -1} \left(1-\pi \right)}^{\beta -1} }{B\left(\alpha ,\beta \right)} & 0\le \pi \le 1\\
+\mathrm{else} & 0
+\end{array}\right.$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+where $B\left(\alpha ,\beta \right)$ is the $\mathrm{Beta}$ function:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$B\left(x,y\right)=\int_0^1 t^{x-1} {\left(1-t\right)}^{y-1} \;dt$$
+\end{par}
+
+\matlabheadingtwo{(i)}
+
+\begin{par}
+\begin{flushleft}
+In statistical notation, this problem can be written as:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+\pi ~\mathrm{Beta}\left(\alpha ,\beta \right)\\
+\omega_n |\pi ~\mathrm{Geometric}\left(\pi \right)
+\end{array}$$
+\end{par}
+
+
+\vspace{1em}
+\begin{par}
+$$p\left(\omega \left|\pi \right.\right)={\left(1-\pi \right)}^{\omega } \;\pi$$
+\end{par}
+
+
+\vspace{1em}
+\begin{par}
+$$p\left(\pi \right)=\frac{\pi^{\alpha -1} {\left(1-\pi \right)}^{\beta -1} }{B\left(\alpha ,\beta \right)}$$
+\end{par}
+
+
+\vspace{1em}
+\matlabheadingtwo{(ii)}
+
+\begin{par}
+\begin{flushleft}
+The posterior can be calculated as $p\left(\pi |\omega_{1:N} \right)=C\;p\left(\omega_{1:N} |\pi \right)\;p\left(\pi \right)$. $p\left(\pi \right)$ is defined from the posterior. The next step is to calculate $p\left(\omega_{1:N} |\pi \right)$, which can be done by taking the product of the probability of each individual observation conditioned on $\pi$:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$p\left(\omega_{1:N} |\pi \right)=\prod_{n=1}^N p\left(\omega_n |\pi \right)=\prod_{n=1}^N \left({\left(1-\pi \right)}^{\omega_n } \pi \right)=\pi^N {\left(1-\pi \right)}^{\sum_{n=1}^N \omega_n }$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+Therefore, the posterior can be written:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+p\left(\pi |\omega_{1:N} \right)\propto p\left(\omega_{1:N} |\pi \right)\;p\left(\pi \right)=\pi^N {\left(1-\pi \right)}^{\sum_{n=1}^N \omega_n } \frac{\pi^{\alpha -1} {\left(1-\pi \right)}^{\beta -1} }{B\left(\alpha ,\beta \right)}\\
+\propto {\left(1-\pi \right)}^{\sum_{n=1}^N \omega_n } \pi^{\alpha -1} {\left(1-\pi \right)}^{\beta -1} =\pi^{N+\alpha -1} {\left(1-\pi \right)}^{\beta -1+\sum_{n=1}^N \omega_n } 
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+It is known that $\int_0^1 p\left(\pi |\omega_{1:N} \right)=1$. The next step is to find the normalization coefficient $C$. This is simple for this equation: the posterior $p\left(\pi |\omega_{1:N} \right)$ is proportional to a beta distribution with updated parameters $\alpha^* ,\beta^*$ where:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+$\alpha^* =\alpha +N,\beta^* =\beta +\sum_{n=1}^N \omega_n$. Therefore:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+p\left(\pi |\omega_{1:N} \right)=C\pi^{\alpha^* -1} {\left(1-\pi \right)}^{\beta^* -1} \\
+\Rightarrow 1=\int_0^1 C\pi^{\alpha -1} {\left(1-\pi \right)}^{\beta -1+\sum_{n=1}^N \omega_n } \;d\pi =\int_0^1 \frac{\pi^{\alpha^* -1} {\left(1-\pi \right)}^{\beta^* -1} }{B\left(\alpha^* ,\beta^* \right)}\;d\pi \\
+=\frac{1}{B\left(\alpha^* ,\beta^* \right)}\int_0^1 \pi^{\alpha^* -1} {\left(1-\pi \right)}^{\beta^* -1} \;d\pi \\
+\Rightarrow C=\frac{1}{B\left(\alpha^* ,\beta^* \right)}=\frac{1}{B\left(\alpha +N,\beta +\sum_{n=1}^N \omega_n \right)}\\
+\Rightarrow p\left(\pi |\omega_{1:N} \right)=\frac{\pi^{\alpha +N-1} {\left(1-\pi \right)}^{\beta +\sum_{n=1}^N \omega_n -1} }{B\left(\alpha +N,\beta +\sum_{n=1}^N \omega_n \right)}
+\end{array}$$
+\end{par}
+
+\matlabheadingtwo{(iii)}
+
+\begin{par}
+\begin{flushleft}
+The following graph compares the prior and posterior distributions of $\pi$ when $\alpha =\beta =1$ and updating using the provided observations $\omega_{1:N}$. It can be seen that the prior distribution is entirely uniform over $0\le \pi \le 1$. This makes sense since for the case $\alpha =\beta =1$, the prior distribution PDF simplifies to $p\left(\pi \right)=\frac{\pi^0 {\left(1-\pi \right)}^0 }{B\left(1,1\right)}=\frac{1}{B\left(1,1\right)}$ when $0\le \pi \le 1$.
+\end{flushleft}
+\end{par}
+
+\begin{center}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_1.eps}
+\end{center}
+\matlabheadingtwo{(iv)}
+
+\begin{par}
+\begin{flushleft}
+The probability that $\pi >0\ldotp 15$ can be determined by integrating the prior and posterior distributions from 0.15 to 1. This is done numerically. Therefore:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+p\left(\pi \right)>0\ldotp 15=\int_{0\ldotp 15}^1 \frac{\pi^{\alpha -1} {\left(1-\pi \right)}^{\beta -1} }{B\left(\alpha ,\beta \right)}\;d\pi =0\ldotp 85=85%\\
+p\left(\pi |\omega_{1:N} \right)>0\ldotp 15=\int_{0\ldotp 15}^1 \frac{\pi^{\alpha -1} {\left(1-\pi \right)}^{\beta -1} }{B\left(\alpha ,\beta \right)}\;d\pi \approx 0\ldotp 0034\approx 0\ldotp 34%
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+This matches up with visual inspection from the graph above: the posterior is uniform and thus the probability will be proportional to the percentage of the range integrated over (i.e., $100%-15%=85%$), but the posterior is extremely confident that the value of $\pi$ will be just below 0.1, with very little probability where $\pi >0\ldotp 15$.
+\end{flushleft}
+\end{par}
+
+\matlabheadingtwo{(v)}
+
+\begin{par}
+\begin{flushleft}
+The maximum value of the posterior can be analytically determined by differentiating the posterior probability distribution $p\left(\pi \left|\omega_{1:N} \right.\right)$ and finding the zero-slope point:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+\frac{d}{d\pi }p\left(\pi |\omega_{1:N} \right)=\frac{1}{B\left(\alpha^* ,\beta^* \right)}\left(\left(\frac{d}{d\pi }\pi^{\alpha +N-1} \right){\left(1-\pi \right)}^{\beta +\sum_{n=1}^N \omega_n -1} +\left(\frac{d}{d\pi }{\left(1-\pi \right)}^{\beta +\sum_{n=1}^N \omega_n -1} \right)\pi^{\alpha +N-1} \right)\\
+=\frac{1}{B\left(\alpha^* ,\beta^* \right)}\left({\;\left(\alpha +N-1\right)\pi^{a+N-2} \left(1-\pi \right)}^{\beta +\sum_{n=1}^N \omega_n -1} +\left(-\beta +\sum_{n=1}^N \omega_n -1\right){\left(1-\pi \right)}^{\beta +\sum_{n=1}^N \omega_n -1} \pi^{\alpha +N-1} \right)\\
+0=\frac{1}{B\left(\alpha^* ,\beta^* \right)}\left({\;\left(\alpha +N-1\right)\pi^{a+N-2} \left(1-\pi \right)}^{\beta +\sum_{n=1}^N \omega_n -1} +\left(-\beta +\sum_{n=1}^N \omega_n -1\right){\left(1-\pi \right)}^{\beta +\sum_{n=1}^N \omega_n -1} \pi^{\alpha +N-1} \right)\\
+=\left({\;\left(\alpha +N-1\right)\pi^{a+N-2} \left(1-\pi \right)}^{\beta +\sum_{n=1}^N \omega_n -1} +\left(-\beta +\sum_{n=1}^N \omega_n -1\right){\left(1-\pi \right)}^{\beta +\sum_{n=1}^N \omega_n -2} \pi^{\alpha +N-1} \right)\\
+\Rightarrow {\;\left(\alpha +N-1\right)\pi^{a+N-2} \left(1-\pi \right)}^{\beta +\sum_{n=1}^N \omega_n -1} =\left(\beta +\sum_{n=1}^N \omega_n -1\right){\left(1-\pi \right)}^{\beta +\sum_{n=1}^N \omega_n -2} \pi^{\alpha +N-1} \\
+\Rightarrow \left(\alpha +N-1\right)\left(1-\pi \right)=\left(\beta +\sum_{n=1}^N \omega_n -1\right)\pi \\
+\Rightarrow \frac{\left(1-\pi \right)}{\pi }=\frac{\left(\beta +\sum_{n=1}^N \omega_n -1\right)}{\left(a+N-1\right)}=\frac{1}{\pi }-1\\
+\sum_{n=1}^N \omega_n =162,N=14,\alpha =1,\beta =1\\
+\Rightarrow \frac{1}{\pi }-1=\frac{\left(1+162-1\right)}{\left(1+14-1\right)}=\frac{162}{14}\\
+\Rightarrow \frac{1}{\pi }=\frac{176}{14}\\
+\Rightarrow \pi =\frac{14}{176}~0\ldotp 0795
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+This matches up with visual inspection of the graph above: the peak is slightly below $\pi =0\ldotp 1$. This can also be verified by evaluating $p\left(\pi \left|\omega_{1:N} \right.\right)$ at points slightly above and below $\frac{14}{176}$ and making sure that both points are lower than $p\left(\frac{14}{176}\left|\omega_{1:N} \right.\right)$:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+p\left(\frac{13}{176}\left|\omega_{1:N} \right.\right)\approx 17\ldotp 7754\\
+p\left(\frac{14}{176}\left|\omega_{1:N} \right.\right)\approx 19\ldotp 5531\\
+p\left(\frac{15}{176}\left|\omega_{1:N} \right.\right)\approx 18\ldotp 8391
+\end{array}$$
+\end{par}
+
+
+\vspace{1em}
+\matlabheading{Problem 3}
+
+\begin{par}
+\begin{flushleft}
+Determine if the models in the previous problems belong to the exponential family. For this to be true, with $x$ as the parameters and $y$ as the measurements, the function must be able to be written as:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+p\left(x\right)\propto {\left(G\left(x\right)\right)}^{\eta } \;\mathrm{exp}\left(\phi \left(x\right)\nu \right)\\
+p\left(y|x\right)=F\left(y\right)G\left(x\right)\;\mathrm{exp}\left(\phi \left(x\right)U\left(y\right)\right)
+\end{array}$$
+\end{par}
+
+\matlabheadingtwo{(i)}
+
+\begin{par}
+\begin{flushleft}
+For the conjugate model to belong to the exponential family, the following must be true:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+p\left(\mu \right)\propto {G\left(\mu \right)}^{\eta } \;\mathrm{exp}\left(\phi \left(\mu \right)\;\nu \right)\\
+p\left(\omega |\mu \right)=F\left(\omega \right)G\left(\mu \right)\;\mathrm{exp}\left(\phi \left(\mu \right)U\left(\omega \right)\right)
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+Start by looking at the probability of $\omega$ conditioned on $\mu$ first:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+p\left(\omega \left|\mu \right.\right)=\left(\frac{1}{\sqrt{2\pi v}}\right)\mathrm{exp}\left(-\frac{1}{2v}{\left(\omega -\mu \right)}^2 \right)\\
+=\left(\frac{1}{\sqrt{2\pi v}}\right)\mathrm{exp}\left(-\frac{1}{2v}\left(\omega^2 -2\omega \mu \right)+\mu^2 \right)\\
+=\left(\frac{1}{\sqrt{2\pi v}}\right)\mathrm{exp}\left(-\frac{\omega^2 }{2v}\right)\mathrm{exp}\left(\frac{\omega \mu }{v}-\frac{\mu^2 }{2v}\right)
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+Define $F\left(\omega \right)=\mathrm{exp}\left(-\frac{\omega^2 }{2v}\right)$. Therefore:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$p\left(\omega \left|\mu \right.\right)=F\left(\omega \right)\;\left(\frac{1}{\sqrt{2\pi v}}\right)\mathrm{exp}\left(\omega \frac{\mu }{v}-\frac{\mu^2 }{2v}\right)$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+Define $G\left(\mu \right)=\left(\frac{1}{\sqrt{2\pi v}}\right)\mathrm{exp}\left(-\frac{\mu^2 }{2v}\right)$. Therefore:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$p\left(\omega |\mu \right)=F\left(\omega \right)G\left(\mu \right)\mathrm{exp}\left(\frac{\omega \mu }{v}\right)$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+Define $\phi \left(\mu \right)=\frac{\mu }{v},U\left(\omega \right)=\omega$:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$p\left(\omega \left|\mu \right.\right)=F\left(\omega \right)G\left(\mu \right)\mathrm{exp}\left(\phi \left(\mu \right)U\left(\omega \right)\right)$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+Now, the prior $p\left(\mu \right)$ must be defined using this same set of equations:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+p\left(\mu \right)=\frac{1}{\sqrt{2\pi V}}\mathrm{exp}\left(-\frac{1}{2V}{\left(\mu -M\right)}^2 \right)\propto {G\left(\mu \right)}^{\eta } \;\mathrm{exp}\left(\phi \left(\mu \right)\;\nu \right)\\
+={\left(\left(\frac{1}{\sqrt{2\pi v}}\right)\mathrm{exp}\left(-\frac{\mu^2 }{2v}\right)\right)}^{\eta } \;\mathrm{exp}\left(\nu \;\mu \right)\\
+={\left(\frac{1}{\sqrt{2\pi v}}\right)}^{\eta } \mathrm{exp}\left(\nu \;\mu -\eta \frac{\mu^2 }{2v}\right)
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+If $\eta =\frac{v}{V}$ and $\nu =\frac{M}{V}$:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+p\left(\mu \right)\propto {\left(\frac{1}{\sqrt{2\pi v}}\right)}^{\frac{v}{V}} \mathrm{exp}\left(\frac{M}{V}\mu -\frac{v}{V}\frac{\mu^2 }{2v}\right)\\
+\propto \mathrm{exp}\left(\frac{M\mu }{V}-\frac{\mu^2 }{2V}\right)\\
+\propto \mathrm{exp}\left(\frac{M\mu }{V}-\frac{\mu^2 }{2V}\right)\mathrm{exp}\left(-\frac{1}{2}\frac{M^2 }{V}\right)\\
+=\mathrm{exp}\left(\frac{M\mu }{V}-\frac{\mu^2 }{2V}-\frac{M^2 }{2V}\right)\\
+=\mathrm{exp}\left(-\frac{1}{2V}\left(\mu^2 -M\mu +M^2 \right)\right)\\
+=\mathrm{exp}\left(-\frac{1}{2V}{\left(M-\mu \right)}^2 \right)
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+This is the correct form for the prior, with $p\left(\mu \right)=C\cdot \mathrm{exp}\left(-\frac{1}{2V}{\left(M-\mu \right)}^2 \right)$. Therefore, the normal conjugate model from problem 1 is part of the exponential family. While this examination only looked at the case where there was a single observation (i.e., $N=1$), this scales to any number of examples, since the posterior resulting from updating with all samples simultaneously is equal to the posterior obtained by chaining the samples by applying a sample, taking the posterior, and treating it as the prior for the next sample, throughout all the samples.
+\end{flushleft}
+\end{par}
+
+\matlabheadingtwo{(ii)}
+
+\begin{par}
+\begin{flushleft}
+For the conjugate model to belong to the exponential family, the following must be true:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+p\left(\pi \right)\propto {G\left(\pi \right)}^{\eta } \;\mathrm{exp}\left(\phi \left(\pi \right)\;\nu \right)\\
+p\left(\omega \left|\pi \right.\right)=F\left(\omega \right)G\left(\pi \right)\;\mathrm{exp}\left(\phi \left(\pi \right)U\left(\omega \right)\right)
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+The prior is:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+$p\left(\pi \right)=\frac{\pi^{\alpha -1} {\left(1-\pi \right)}^{\beta -1} }{B\left(\alpha ,\beta \right)}\propto \pi^{\alpha -1} {\left(1-\pi \right)}^{\beta -1}$, and the likelihood of observing some sample given $\mu$ is:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$p\left(\omega |\pi \right)=\left\lbrace \begin{array}{ll}
+{\left(1-\pi \right)}^{\omega } \pi  & \omega \ge 0\\
+0 & \mathrm{else}
+\end{array}\right.$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+First, the probability of $\omega$ conditioned on $\pi$ for $0\le \pi$will be examined:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+p\left(\omega |\pi \right){=\left(1-\pi \right)}^{\omega } \pi \\
+=\pi \mathrm{exp}\left(\mathrm{ln}\left(1-\pi \right)\omega \right)
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+Let $G\left(\pi \right)=\pi ,\phi \left(\pi \right)=\mathrm{ln}\left(1-\pi \right),F\left(\omega \right)=1,U\left(\omega \right)=\omega$:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$p\left(\omega |\pi \right)=G\left(\pi \right)\;\mathrm{exp}\left(\phi \left(\pi \right)U\left(\omega \right)\right)$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+Now the prior $p\left(\pi \right)$ must be constructed using these equations:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$p\left(\pi \right)=\pi^{\alpha -1} {\left(1-\pi \right)}^{\beta -1} \propto {G\left(\pi \right)}^{\eta } \;\mathrm{exp}\left(\phi \left(\pi \right)\;\nu \right)=\pi^{\eta } \;\mathrm{exp}\left(\mathrm{ln}\left(1-\pi \right)\;\nu \right)$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+Assume $\eta =\alpha -1$:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$\begin{array}{l}
+p\left(\pi \right)\propto \pi^{\alpha -1} \;\mathrm{exp}\left(\mathrm{ln}\left(1-\pi \right)\;\nu \right)\\
+=\pi^{\alpha -1} {\left(1-\pi \right)}^{\nu } 
+\end{array}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+Assume $\nu =\beta -1$:
+\end{flushleft}
+\end{par}
+
+\begin{par}
+$$p\left(\pi \right)\propto \pi^{\alpha -1} {\left(1-\pi \right)}^{\beta -1}$$
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+This is of the correct form for the input beta distribution, with $p\left(\pi \right)=C\cdot \pi^{\alpha -1} {\left(1-\pi \right)}^{\beta -1}$. Therefore the beta conjugate model from problem 1 is part of the exponential family. As before, while only a single sample was examined for the likelihood function, this is equivilent to evaluating the likelihood for an arbitrary number of samples.
+\end{flushleft}
+\end{par}
+
+\end{document}
